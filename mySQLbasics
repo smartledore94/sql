@@ -1,0 +1,120 @@
+###
+1. Algebraischer Entwurf mit der Normalformentheorie (Folien 6)
+	1.1. Ziele der Normalisierung
+		- Redundanzvermeidung als Basis der Anomaliefreiheit
+		- Vermeidung unnötiger Abhängigkeiten zur Vermeidung von Performanceeinbußen
+		- Senkung der Anzahl beteiligter Tabellen bei Modifikation
+		- Erhöhung des Dokumentationsgrades; Ziel: Bessere Verständlichkeit
+
+	1.2. Universalrelation
+		- Ausgangspunkt der algebraischen Normalisierung
+			- Nur ein Relationenschema
+			- Urrelation / Universalrelation genannt
+		- Umfasst alle Attribute
+		- Umfasst alle funktionalen Abhängigkeiten zwischen den Attributen
+		- Im Fall mehrerer Relationenschemata: Auf jedes einzelne separat anwenden
+
+	1.3. Transitive Abhängigkeit
+		- In einer Relation R ist ein Attribut z transitiv von einem Attribut x abhängig gdw. z voll funktional abhängig ist von y 
+			und y voll funktional abhängig ist von z
+		- Kurzform: x->->z wenn x->y und y->z
+
+	1.4. 
+	a) Höchste, mit der Normalformentheorie erreichbare Normalform: 
+		- 5. Normalform ist die höchstmögliche über den Normalisierungsprozeß erreichbare Normalform
+	b) Kann jede Datenbank in diese Form überführt werden?
+		- Nein, nicht bei jeder Relation möglich. Der Normalisierungsprozeß endet in der höchstmöglichen Normalform
+		- Zerlegung durch Projektion und ausschließende Verbundoperationen, durch die keine Tupel gebildet werden, 
+			die nicht Bestandteil der Ausgangsselektion waren = schwierig und auch nicht sinnvoll 
+
+###
+2. Integrität in relationalen Datenbanken (Folien 5)
+	2.1. Integritätskontrolle
+		- Vehinderung semantischer Fehler bzw. semantisch unsinniger Zustände
+
+	2.2. Arten von Integritätsbedingungen mit Beispielen
+		- Statische Bedingungen:
+			- Einschränkung der Menge der möglichen DB-Zustände gegenüber den Möglichkeiten des Schemas
+			- z.B. : Ober/Untergrenze (Jahr zwischen 2000 und 2100)
+			- Festlegung bestimmter Werte (Enums) 
+			- Not Null, bspw. bei ISBN 
+
+		- Transitionale (halb-dynamische) Bedingungen
+			- Einschränkung der möglichen Zustandsübergänge
+			- d.h. Art und Weise von einem gegebenen zu einem neuen Zustand zu gelangen
+			- z.B. : Semesteranzahl eines Studenten darf nur steigen
+
+		- Dynamische Integritätsbedingungen (temporale Bedingungen)
+			- Verallgemeinerung der Transitionalen Bedingungen
+			- Beziehen sich nicht auf genau 2, sondern mehrere Zustände, welche in zeitlicher Abfolge erreicht bzw. durchlaufen werden
+			- z.B. : Studenten müssen alle 2 Semester eine Prüfung ablegen
+	
+	2.3. Funktionale Abhängigkeit
+		- beschreibt Beziehungen zwischen den Attributen einer Relation
+		- Gegeben:
+			– Ein Relationenschema R
+			– A, B: Zwei Mengen von Attributen von R (A,B ⊆ R)
+		• Definition:
+			- B ist von A funktional abhängig (A → B) gdw.
+			für alle möglichen Ausprägungen von R gilt:
+			Zu jedem Wert in A exist. genau ein Wert von B.
+
+	2.4. Für die Darstellung welcher Beziehung eignen sich Inklusionsabhängigkeiten?
+		- für IS-A-Beziehungen
+		- d.h. =1, falls in beiden beteiligten Relationen zwei Attribute den gleichen Wert haben; sonst 0
+
+	2.5. Möglichkeiten zur Integritätsüberwachung
+		- Transaktionsorientiert
+			- Erfolgt im Kontext eines Programmes welches die DB ändern möchte
+			- klassisches Monitor Programm
+		- Ergebnisorientiert
+			- Ereignis Bedingungen-Aktionen - Regeln
+			- Als Trigger realisiert
+	
+	2.6. Aktive Datenbank
+		- Datenbanken die Stored Procedures und Trigger unterstützen
+		- Folgende Inputs, Conditions, Updates, Reports, Ext. Signals und resultierende (automatisierte) ext. und int. actions und display status
+
+###
+3. Objektbasierte Modelle (Folien 7)
+	3.1. In welche Gruppen werden objektbasierte Datenbankmodelle unterschieden?
+		- Objektorientierte Modelle
+		- Objektrelationale Modelle
+
+	3.2. Anforderungen an objektbasiertes Datenmodell
+		- Direkte Darstellbarkeit bzw. Modellierbarkeit stark strukturierter Informationen
+		- "Hohe Datentypen" (Beschreibung und Manipulation grafischer und audiovisueller Daten)
+		- Bereitstellung Typ-spezifischer Operationen zur Spezifikation bzw. Modellierung von Verhalten
+		- Unterstützung mächtiger Sprachen zur Nutzung des Modells
+
+	3.3. abstrakte Datentypen
+		- Daten-Abstraktion 
+		- Verbergen von Informationen
+		- besteht aus einem Wertebereich (= einer Menge von Objekten) und darauf definierten Operationen; Menge der Operationen = Schnittstelle
+
+	3.4. Grundzüge des objektrelationalen Datenmodells
+		- Relationale Datenbanksysteme weithin eingeführt 
+		- Vielzahl von Benutzerschnittstellen, -oberflächen und Werkzeuge für relationale Systeme verfügbar
+		● Anwender setzen zunehmend Objekttechnologien ein
+		● Relationales Modell mit flacher Tabellenstruktur bildet Daten auf Bildschirm / Papier adäquat ab
+		● Viele Schemata objektorientierter Datenbanken sind auf der obersten Stufe record- bzw. Tupelstrukturiert, 
+			erst darunterleigende Schachtelungsstufen verwenden Typen und Konstruktoren
+
+###
+4. Datenbanksprachen
+	4.1. Zentrale Sprachparadigmen des Relationenmodells (PDF 7-8)
+		- Prozedurale Algebra (Relationenalgebra)
+		- Deskriptive Kalküle (Relationenkalküle)
+
+	4.2. Kann man mit Relationenalgebra jede beliebige Hülle berechnen?
+		- Die Berechnung einer transitiven Hülle ist nicht möglich
+		- Problem: Bei einer beliebig großen Vereinigung ist unklar, wo abgebrochen werden soll
+		- Kann unendlich groß sein
+
+	4.3. Codd-vollständige Sprache
+		- Relationenkalkül, so mächtig wie die RA (Relationenalgebra)
+		- Nicht Turing-vollständig
+
+	4.4. Wann sind zwei Sprachen gleich ausdrucksstark?
+		- Wenn sie äquivalent sind
+###
